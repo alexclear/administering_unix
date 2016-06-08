@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#define BLOCK_SIZE 16384
+#define BLOCK_SIZE 2048
 
 int main(int argc, char** argv) {
 	int flags, opt;
