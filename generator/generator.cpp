@@ -9,6 +9,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#define BLOCK_SIZE 4096
+
 int main(int argc, char** argv) {
 	int flags, opt;
 	std::string catalog_path;
@@ -47,7 +49,7 @@ int main(int argc, char** argv) {
 	}
 
 	int fd_random = open("/dev/urandom", O_RDONLY);
-	char buffer[4096];
+	char buffer[BLOCK_SIZE];
 
 	for(int i=0; i<num_files; i++) {
 		// 1) Generate an unique file name
@@ -63,16 +65,16 @@ int main(int argc, char** argv) {
 			fprintf(stderr, "Error opening/creating a file, error: %s", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
-		int nr_bytes = read(fd_random, buffer, 4096);
+		int nr_bytes = read(fd_random, buffer, BLOCK_SIZE);
 		if(nr_bytes == -1) {
 			fprintf(stderr, "Error reading random sequence");
 			exit(EXIT_FAILURE);
 		}
-		if(nr_bytes != 4096) {
-			fprintf(stderr, "Number of bytes read is not 4096, it is %i!", nr_bytes);
+		if(nr_bytes != BLOCK_SIZE) {
+			fprintf(stderr, "Number of bytes read is not %i, it is %i!", BLOCK_SIZE, nr_bytes);
 			exit(EXIT_FAILURE);
 		}
-		result = write(fd, buffer, 4096);
+		result = write(fd, buffer, BLOCK_SIZE);
 		if(result == -1) {
 			fprintf(stderr, "Error writing to a file");
 			exit(EXIT_FAILURE);
