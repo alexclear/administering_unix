@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
 	}
 
 	int fd_random = open("/dev/urandom", O_RDONLY);
-	char buffer[4096];
+	char buffer[8192];
 
 	for(int i=0; i<num_files; i++) {
 		// 1) Generate an unique file name
@@ -63,16 +63,16 @@ int main(int argc, char** argv) {
 			fprintf(stderr, "Error opening/creating a file, error: %s", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
-		int nr_bytes = read(fd_random, buffer, 4096);
+		int nr_bytes = read(fd_random, buffer, 8192);
 		if(nr_bytes == -1) {
 			fprintf(stderr, "Error reading random sequence");
 			exit(EXIT_FAILURE);
 		}
-		if(nr_bytes != 4096) {
-			fprintf(stderr, "Number of bytes read is not 4096, it is %i!", nr_bytes);
+		if(nr_bytes != 8192) {
+			fprintf(stderr, "Number of bytes read is not 8192, it is %i!", nr_bytes);
 			exit(EXIT_FAILURE);
 		}
-		result = write(fd, buffer, 4096);
+		result = write(fd, buffer, 8192);
 		if(result == -1) {
 			fprintf(stderr, "Error writing to a file");
 			exit(EXIT_FAILURE);
