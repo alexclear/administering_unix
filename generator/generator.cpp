@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 	int flags, opt;
 	std::string catalog_path;
 	std::string file_name;
-	int num_files = 0;
+	int num_files = 1000;
 
 	while ((opt = getopt(argc, argv, "c:p:")) != -1) {
 		switch (opt) {
