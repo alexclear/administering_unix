@@ -8,8 +8,8 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <errno.h>
-//#include "generator.h"
-#include <dlfcn.h>
+#include "generator.h"
+//#include <dlfcn.h>
 
 #define BLOCK_SIZE 2048
 
@@ -44,6 +44,7 @@ int main(int argc, char** argv) {
 
 	void *lib_handle;
 
+	/*
 	lib_handle = dlopen("./libgenerator.so", RTLD_LAZY);
 	if (!lib_handle)
 	{
@@ -57,8 +58,9 @@ int main(int argc, char** argv) {
 	      fprintf(stderr, "%s\n", error);
 	      exit(EXIT_FAILURE);
 	}
+	*/
 	 
-	(*fn)(catalog_path.c_str(), num_files);
+	generate(catalog_path.c_str(), num_files);
 
 	/*
 	// Create a folder
