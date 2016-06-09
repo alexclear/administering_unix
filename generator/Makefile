@@ -3,11 +3,13 @@ all: generator libgenerator.so.1.0
 generator: generator.o libgenerator.so.1.0
 	g++ -g generator.o -o generator -L. -lgenerator
 
-generator.o: generator.cpp
+generator.o: generator.cpp install_lib
 	g++ -g -std=c++11 -c generator.cpp
 
-install: generator libgenerator.so.1.0
+install: generator
 	install -m 0755 generator /usr/bin/generator
+
+install_lib: libgenerator.so.1.0
 	install -m 0644 libgenerator.so.1.0 /usr/lib/libgenerator.so.1.0
 	install -m 0644 generator.h /usr/include/generator.h
 	test -L /usr/lib/libgenerator.so.1 || ln -s /usr/lib/libgenerator.so.1.0 /usr/lib/libgenerator.so.1
