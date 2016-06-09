@@ -1,7 +1,7 @@
 all: generator libgenerator.so.1.0
 
 generator: generator.o libgenerator.so.1.0
-	g++ -g -lgenerator generator.o -o generator
+	g++ -g generator.o -o generator -ldl
 
 generator.o: generator.cpp
 	g++ -g -std=c++11 -c generator.cpp
