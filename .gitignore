@@ -2,3 +2,5 @@
 /generator/generator
 /generator/generator.o
 /generator/*.o
+/libgenerator/*.o
+/libgenerator/libgenerator.so.1.0
