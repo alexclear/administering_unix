@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 
 	void *lib_handle;
 
-	lib_handle = dlopen("./libgenerate.so", RTLD_LAZY);
+	lib_handle = dlopen("./libgenerator.so", RTLD_LAZY);
 	if (!lib_handle)
 	{
 		fprintf(stderr, "%s\n", dlerror());
