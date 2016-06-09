@@ -8,7 +8,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "generator.h"
+#include <generator.h>
 //#include <dlfcn.h>
 
 #define BLOCK_SIZE 2048
