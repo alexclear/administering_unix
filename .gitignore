@@ -4,3 +4,6 @@
 /generator/*.o
 /libgenerator/*.o
 /libgenerator/libgenerator.so.1.0
+description-pak
+backup-*.tgz
+/*.deb
