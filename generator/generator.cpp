@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <errno.h>
+//#include "generator.h"
+#include <dlfcn.h>
 
 #define BLOCK_SIZE 2048
 
@@ -16,6 +18,8 @@ int main(int argc, char** argv) {
 	std::string catalog_path;
 	std::string file_name;
 	int num_files = 1000;
+	char *error;
+	void (*fn)(const char*, int);
 
 	while ((opt = getopt(argc, argv, "c:p:")) != -1) {
 		switch (opt) {
@@ -38,6 +42,25 @@ int main(int argc, char** argv) {
 	}
 	printf("path=%s, num_files:%d\n", catalog_path.c_str(), num_files);
 
+	void *lib_handle;
+
+	lib_handle = dlopen("./libgenerate.so", RTLD_LAZY);
+	if (!lib_handle)
+	{
+		fprintf(stderr, "%s\n", dlerror());
+		exit(EXIT_FAILURE);
+	}
+
+	fn = (void (*)(const char*, int))dlsym(lib_handle, "generate");
+	if ((error = dlerror()) != NULL) 
+	{
+	      fprintf(stderr, "%s\n", error);
+	      exit(EXIT_FAILURE);
+	}
+	 
+	(*fn)(catalog_path.c_str(), num_files);
+
+	/*
 	// Create a folder
 	// Check if it exists first
 	struct stat buf;
@@ -87,6 +110,6 @@ int main(int argc, char** argv) {
 //		}
 	}
 	close(fd_random);
-
+*/
 	exit(EXIT_SUCCESS);
 }
